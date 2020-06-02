@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Api.Core.Entities;
 using Api.Core.Interfaces;
+using Api.Core.Params;
 using Api.Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +18,10 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts([FromQuery] ProductParams productParams)
         {
 
-            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var spec = new ProductsWithTypesAndBrandsSpecification(productParams);
 
             return Ok(await _productRepository.ListAsync(spec));
         }
