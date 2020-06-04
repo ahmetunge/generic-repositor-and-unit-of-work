@@ -26,6 +26,11 @@ namespace Api.Infrastructure.Data.EntityFrameworkCore
                 query = query.OrderByDescending(spec.OrderByDesc);
             }
 
+            if (spec.IsPagingEnabled)
+            {
+                query = query.Take(spec.Take).Skip(spec.Skip);
+            }
+
             query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
 
             return query;

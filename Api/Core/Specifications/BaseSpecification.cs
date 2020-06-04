@@ -23,6 +23,12 @@ namespace Api.Core.Specifications
 
         public Expression<Func<T, object>> OrderByDesc { get; private set; }
 
+        public int Take { get; private set; }
+
+        public int Skip { get; private set; }
+
+        public bool IsPagingEnabled { get; private set; }
+
         protected void AddInclude(Expression<Func<T, object>> includeExpression)
         {
             Includes.Add(includeExpression);
@@ -35,6 +41,13 @@ namespace Api.Core.Specifications
         protected void AddOrderByDesc(Expression<Func<T, object>> expression)
         {
             OrderByDesc = expression;
+        }
+
+        protected void ApplyPaging(int take, int skip)
+        {
+            Take = take;
+            Skip = skip;
+            IsPagingEnabled = true;
         }
     }
 }

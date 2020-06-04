@@ -21,6 +21,11 @@ namespace Api.Infrastructure.Data.EntityFrameworkCore
             _context.Set<T>().Add(entity);
         }
 
+        public async Task<int> CountAsync(ISpecification<T> spec)
+        {
+            return await ApplSpecification(spec).CountAsync();
+        }
+
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);

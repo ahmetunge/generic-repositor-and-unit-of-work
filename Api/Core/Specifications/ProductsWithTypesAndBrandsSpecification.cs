@@ -13,6 +13,7 @@ namespace Api.Core.Specifications
             AddInclude(p => p.ProductBrand);
             AddInclude(p => p.ProductType);
             AddOrderByAsc(p => p.Name);
+            ApplyPaging(productParams.PageSize, productParams.PageSize * (productParams.PageIndex - 1));
 
             switch (productParams.Sort)
             {
@@ -26,6 +27,8 @@ namespace Api.Core.Specifications
                     AddOrderByAsc(p => p.Name);
                     break;
             }
+
+
         }
         public ProductsWithTypesAndBrandsSpecification(int id) : base(p => p.Id == id)
         {
